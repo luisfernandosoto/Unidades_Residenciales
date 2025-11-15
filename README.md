@@ -1,150 +1,169 @@
-# 🏢 Unidades Residenciales - App Móvil
+# 🔧 Backend API - Unidades Residenciales
 
-Aplicación móvil multiplataforma para la gestión integral de unidades residenciales. Facilita la comunicación entre residentes y administradores, reservas de zonas comunes, gestión de PQRS y más.
+API REST para la gestión de unidades residenciales construida con Node.js y Express.
 
-## 📱 Características Principales
+## 🚀 Inicio Rápido
 
-- 🔐 **Autenticación segura** - Login y registro con validación de usuarios
-- 🏘️ **Gestión de unidades** - Administración de múltiples conjuntos residenciales
-- 📅 **Reservas** - Sistema de reservas para zonas comunes (salón social, piscina, gimnasio)
-- 📢 **Noticias y comunicados** - Publicación y visualización de información importante
-- 📝 **Sistema PQRS** - Peticiones, Quejas, Reclamos y Sugerencias con seguimiento
-- 🔔 **Notificaciones push** - Alertas en tiempo real vía Firebase
-
-## 🚀 Tecnologías
-
-### Frontend
-- **Framework**: Flutter 3.24.0
-- **Plataformas**: Android & iOS
-- **State Management**: Provider / Riverpod (por definir)
-- **UI Inspiration**: C.R. Arándanos
-
-### Backend
-- **Runtime**: Node.js 18+
-- **Framework**: Express.js
-- **Base de datos**: MySQL 8.0
-- **Autenticación**: JWT
-- **Notificaciones**: Firebase Cloud Messaging
-
-### DevOps
-- **CI/CD**: GitHub Actions
-- **Contenedores**: Docker + Docker Compose
-- **Deployment**: Railway / Render / AWS (configurable)
-
-## 📁 Estructura del Proyecto
-
-```
-unidades-residenciales/
-├── mobile/          # Aplicación Flutter
-├── backend/         # API REST Node.js
-├── docs/           # Documentación
-└── .github/        # Workflows CI/CD
-```
-
-## 🛠️ Instalación y Configuración
-
-### Prerrequisitos
-
-- Flutter SDK 3.24.0+
-- Node.js 18+
-- MySQL 8.0
-- Docker (opcional pero recomendado)
-- Git
-
-### 1. Clonar el repositorio
+### Instalación
 
 ```bash
-git clone https://github.com/tu-usuario/unidades-residenciales.git
-cd unidades-residenciales
-```
-
-### 2. Configurar Backend
-
-```bash
-cd backend
 npm install
+```
+
+### Configuración
+
+```bash
 cp .env.example .env
-# Edita .env con tus credenciales
+# Edita el archivo .env con tus credenciales
+```
+
+### Ejecutar en desarrollo
+
+```bash
 npm run dev
 ```
 
-### 3. Configurar App Móvil
+### Ejecutar en producción
 
 ```bash
-cd mobile
-flutter pub get
-flutter run
+npm start
 ```
 
-### 4. Usar Docker (Recomendado)
+## 📡 Endpoints Principales
+
+### Autenticación
+- `POST /api/v1/auth/register` - Registrar usuario
+- `POST /api/v1/auth/login` - Iniciar sesión
+- `POST /api/v1/auth/refresh` - Refrescar token
+- `POST /api/v1/auth/forgot-password` - Recuperar contraseña
+- `POST /api/v1/auth/reset-password` - Restablecer contraseña
+
+### Usuarios
+- `GET /api/v1/users/:id` - Obtener usuario
+- `PUT /api/v1/users/:id` - Actualizar usuario
+- `DELETE /api/v1/users/:id` - Eliminar usuario
+
+### Unidades Residenciales
+- `GET /api/v1/units` - Listar unidades
+- `GET /api/v1/units/:id` - Obtener unidad
+- `POST /api/v1/units` - Crear unidad (admin)
+- `PUT /api/v1/units/:id` - Actualizar unidad (admin)
+
+### Reservas
+- `GET /api/v1/reservations` - Listar reservas
+- `POST /api/v1/reservations` - Crear reserva
+- `PUT /api/v1/reservations/:id` - Actualizar reserva
+- `DELETE /api/v1/reservations/:id` - Cancelar reserva
+
+### Noticias
+- `GET /api/v1/news` - Listar noticias
+- `GET /api/v1/news/:id` - Obtener noticia
+- `POST /api/v1/news` - Crear noticia (admin)
+- `PUT /api/v1/news/:id` - Actualizar noticia (admin)
+- `DELETE /api/v1/news/:id` - Eliminar noticia (admin)
+
+### PQRS
+- `GET /api/v1/pqrs` - Listar solicitudes
+- `GET /api/v1/pqrs/:id` - Obtener solicitud
+- `POST /api/v1/pqrs` - Crear solicitud
+- `PUT /api/v1/pqrs/:id` - Actualizar estado (admin)
+
+## 🗄️ Base de Datos
+
+### Ejecutar migraciones
 
 ```bash
-# En la raíz del proyecto
-docker-compose up -d
+npm run migrate
 ```
 
-## 📖 Documentación
+### Ejecutar seeds (datos de prueba)
 
-- [📘 Documentación de API](docs/API.md)
-- [🗄️ Esquema de Base de Datos](docs/DATABASE.md)
-- [🚀 Guía de Despliegue](docs/DEPLOYMENT.md)
-- [🏗️ Arquitectura](docs/ARCHITECTURE.md)
+```bash
+npm run seed
+```
+
+### Crear nueva migración
+
+```bash
+npm run migrate:create nombre_migracion
+```
 
 ## 🧪 Testing
 
-### Tests del Backend
+### Ejecutar todos los tests
+
 ```bash
-cd backend
 npm test
+```
+
+### Ejecutar tests con coverage
+
+```bash
 npm run test:coverage
 ```
 
-### Tests de Flutter
+### Ejecutar tests en modo watch
+
 ```bash
-cd mobile
-flutter test
-flutter test --coverage
+npm run test:watch
 ```
 
-## 📋 Roadmap
+## 🐳 Docker
 
-### Fase 1 - Diseño (2 semanas)
-- [x] Definición de UI/UX en Figma
-- [ ] Validación con cliente
+### Construir imagen
 
-### Fase 2 - Autenticación (1 semana)
-- [ ] Login/Registro
-- [ ] Gestión de roles
-- [ ] Recuperación de contraseña
+```bash
+docker build -t unidades-residenciales-api .
+```
 
-### Fase 3 - Módulos Core (5 semanas)
-- [ ] Gestión de unidades residenciales
-- [ ] Noticias y comunicados
-- [ ] Sistema de reservas
-- [ ] PQRS
+### Ejecutar con Docker Compose
 
-### Fase 4 - Integración Final (1.5 semanas)
-- [ ] Notificaciones push
-- [ ] Testing integral
-- [ ] Deploy a producción
+```bash
+docker-compose up -d
+```
 
-## 👨‍💻 Desarrollador
+## 📦 Scripts Disponibles
 
-**Luis Fernando Soto**
-- Proyecto para: Gonzalo
-- Inicio: 22 de noviembre de 2025
-- Duración estimada: 8-10 semanas
+```json
+{
+  "start": "node server.js",
+  "dev": "nodemon server.js",
+  "test": "jest",
+  "test:watch": "jest --watch",
+  "test:coverage": "jest --coverage",
+  "lint": "eslint .",
+  "lint:fix": "eslint . --fix",
+  "migrate": "node database/migrate.js",
+  "seed": "node database/seed.js"
+}
+```
+
+## 🔒 Seguridad
+
+- Contraseñas encriptadas con bcrypt
+- Autenticación con JWT
+- Rate limiting implementado
+- CORS configurado
+- Validación de inputs
+- SQL injection protection
+
+## 📊 Monitoreo
+
+Logs disponibles en:
+- Consola (desarrollo)
+- Archivo `logs/app.log` (producción)
+
+## 🌐 Variables de Entorno
+
+Ver archivo `.env.example` para todas las variables requeridas.
+
+## 🤝 Contribución
+
+1. Crea una rama feature: `git checkout -b feature/nueva-funcionalidad`
+2. Commit tus cambios: `git commit -m 'Agrega nueva funcionalidad'`
+3. Push a la rama: `git push origin feature/nueva-funcionalidad`
+4. Crea un Pull Request
 
 ## 📄 Licencia
 
-Este proyecto es privado y confidencial.
-
-## 📞 Soporte
-
-Para reportar bugs o solicitar features, crear un issue en este repositorio.
-
----
-
-⭐ **Estado del Proyecto**: En desarrollo
-
-🔧 **Última actualización**: Noviembre 2025
+Privado y confidencial.
